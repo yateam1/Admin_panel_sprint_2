@@ -7,8 +7,8 @@ from factory.django import DjangoModelFactory
 from factory.fuzzy import FuzzyChoice
 from django.db import transaction
 
-from .models import Movie, Person, Genre, Episode, Season, RoleType
-from .models import Serial, AgeClassification, MoviePersonRole, SerialPersonRole
+from movie.models import Movie, Person, Genre, Episode, Season, RoleType
+from movie.models import Serial, AgeClassification, MoviePersonRole, SerialPersonRole
 
 PERSONS_COUNT = 30  # 1000
 GENRES_COUNT = 20  # 10000
