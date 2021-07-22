@@ -24,7 +24,8 @@ class MoviePersonRoleReadOnlyInline(admin.TabularInline):
     classes = ('collapse',)
     readonly_fields = ('role', 'person', )
     can_delete = False
-
+    def has_add_permission(self, request):
+        return False
 
 class SerialPersonRoleInline(admin.TabularInline):
     verbose_name = _('took part in serials')
@@ -46,7 +47,8 @@ class SerialPersonRoleReadOnlyInline(admin.TabularInline):
     classes = ('collapse',)
     readonly_fields = ('role', 'person', )
     can_delete = False
-
+    def has_add_permission(self, request):
+        return False
 
 class MovieGenreInline(admin.TabularInline):
     model = Movie.genres.through
