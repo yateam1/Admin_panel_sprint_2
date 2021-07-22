@@ -5,6 +5,8 @@ from .models import Serial, Season, Episode
 
 
 class MoviePersonRoleInline(admin.TabularInline):
+    verbose_name = _('took part in movies')
+    verbose_name_plural = _('they took part in movies')
     model = MoviePersonRole
     fields = ('role', 'person', )
     extra = 0
@@ -12,12 +14,38 @@ class MoviePersonRoleInline(admin.TabularInline):
     classes = ('collapse',)
 
 
+class MoviePersonRoleReadOnlyInline(admin.TabularInline):
+    verbose_name = _('took part in movies')
+    verbose_name_plural = _('they took part in movies')
+    model = MoviePersonRole
+    fields = ('role', 'person', )
+    extra = 0
+    ordering = ('role', 'person__last_name', 'person__first_name', )
+    classes = ('collapse',)
+    readonly_fields = ('role', 'person', )
+    can_delete = False
+
+
 class SerialPersonRoleInline(admin.TabularInline):
+    verbose_name = _('took part in serials')
+    verbose_name_plural = _('they took part in serials')
     model = SerialPersonRole
     fields = ('role', 'person', )
     extra = 0
     ordering = ('role', 'person__last_name', 'person__first_name', )
     classes = ('collapse',)
+
+
+class SerialPersonRoleReadOnlyInline(admin.TabularInline):
+    verbose_name = _('took part in serials')
+    verbose_name_plural = _('they took part in serials')
+    model = SerialPersonRole
+    fields = ('role', 'person', )
+    extra = 0
+    ordering = ('role', 'person__last_name', 'person__first_name', )
+    classes = ('collapse',)
+    readonly_fields = ('role', 'person', )
+    can_delete = False
 
 
 class MovieGenreInline(admin.TabularInline):
@@ -145,8 +173,8 @@ class PersonAdmin(admin.ModelAdmin):
     list_per_page = 10
 
     inlines = [
-        MoviePersonRoleInline,
-        SerialPersonRoleInline,
+        MoviePersonRoleReadOnlyInline,
+        SerialPersonRoleReadOnlyInline,
     ]
 
 
