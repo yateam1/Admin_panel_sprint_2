@@ -24,7 +24,7 @@ class MoviePersonRoleReadOnlyInline(admin.TabularInline):
     classes = ('collapse',)
     readonly_fields = ('role', 'person', )
     can_delete = False
-    def has_add_permission(self, request):
+    def has_add_permission(self, request, obj):
         return False
 
 class SerialPersonRoleInline(admin.TabularInline):
@@ -47,7 +47,7 @@ class SerialPersonRoleReadOnlyInline(admin.TabularInline):
     classes = ('collapse',)
     readonly_fields = ('role', 'person', )
     can_delete = False
-    def has_add_permission(self, request):
+    def has_add_permission(self, request, obj):
         return False
 
 class MovieGenreInline(admin.TabularInline):
