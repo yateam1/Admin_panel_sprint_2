@@ -2,8 +2,8 @@ version: '3.7'
 
 services:
 
-  movie_web:
-    container_name: movie_admin
+  admin_panel:
+    container_name: admin_panel
     build:
       context: .
     env_file:
@@ -40,7 +40,7 @@ services:
       - movie_net
     depends_on:
       - db
-      - movie_web
+      - admin_panel
     ports:
       - 80:80
     volumes:
@@ -53,5 +53,5 @@ volumes:
 
 networks:
   movie_net:
-    name: custom_network
+    name: movie_net
     driver: bridge
