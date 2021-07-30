@@ -27,7 +27,7 @@ services:
     networks:
       - movie_net
     ports:
-      - $POSTGRES_PORT:$POSTGRES_PORT
+      - 5432:5432
     volumes:
       - db-data-4:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql

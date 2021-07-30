@@ -1,14 +1,25 @@
-import os
 from pathlib import Path
+
 from environs import Env
+from pydantic import BaseModel
 
 env = Env()
 env.read_env()
 
-PROJECT_SECRET_KEY = env.str("PROJECT_SECRET_KEY")
+class PostgresSettings(BaseModel):
+    host: str
+    port: int
 
-POSTGRES_HOST = env.str("POSTGRES_HOST", default="localhost")
-POSTGRES_PORT = env.int("POSTGRES_PORT", default=5432)
+
+class Config(BaseModel):
+    postgres_db: PostgresSettings
+
+pg_config = Config.parse_file('config.json')
+
+DJANGO_SECRET_KEY = env.str("DJANGO_SECRET_KEY")
+
+POSTGRES_HOST = pg_config.postgres_db.host
+POSTGRES_PORT = pg_config.postgres_db.port
 POSTGRES_DB = env.str("POSTGRES_DB")
 POSTGRES_USER = env.str("POSTGRES_USER")
 POSTGRES_PASSWORD = env.str("POSTGRES_PASSWORD")
@@ -22,7 +33,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = PROJECT_SECRET_KEY
+SECRET_KEY = DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
