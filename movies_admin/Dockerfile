@@ -5,12 +5,10 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-COPY requirements/base.txt .
-COPY requirements/dev.txt .
-COPY requirements/production.txt .
-COPY entrypoint.sh .
-
+COPY requirements/base.txt requirements/dev.txt requirements/production.txt ./
 RUN pip install -r dev.txt
+
+COPY . .
 
 RUN chmod +x ./entrypoint.sh
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
