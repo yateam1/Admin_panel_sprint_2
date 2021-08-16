@@ -96,7 +96,7 @@ class MovieAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (_('movie'), {
-            'fields': (('title', 'creation_date', 'rating', 'age_classification', ),)
+            'fields': (('title', 'creation_date', 'rating', 'age_classification', 'by_subscription', ),)
         }),
         (_('video file'), {
             'classes': ('collapse', ),
@@ -130,7 +130,7 @@ class SerialAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (_('serial'), {
-            'fields': (('title', 'creation_date', 'rating', 'age_classification', ),)
+            'fields': (('title', 'creation_date', 'rating', 'age_classification', 'by_subscription', ),)
         }),
         (_('description and certificate'), {
             'classes': ('collapse', ),

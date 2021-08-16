@@ -8,7 +8,7 @@ from factory.fuzzy import FuzzyChoice
 from django.db import transaction
 
 from movie.models import Movie, Person, Genre, Episode, Season, RoleType
-from movie.models import Serial, AgeClassification, MoviePersonRole, SerialPersonRole
+from movie.models import Serial, AgeClassification, MoviePersonRole, SerialPersonRole, SubscriptionType
 
 PERSONS_COUNT = 30  # 1000
 GENRES_COUNT = 20  # 10000
@@ -19,6 +19,7 @@ SEASONS_MAX = 9  # максимальное количество сезонов 
 EPISODES_MAX = 9  # максимальное количество эпизодов на каждый сезон
 RATINGS = range(0, 11)
 AGE_IDS = [age[0] for age in AgeClassification.choices]
+SUBSCRIPTION_TYPE = [subscription[0] for subscription in SubscriptionType.choices]
 
 
 class PersonFactory(DjangoModelFactory):
@@ -47,6 +48,7 @@ class MovieFactory(DjangoModelFactory):
     certificate = factory.Sequence(lambda n: f'Certificate {n}')
     rating = FuzzyChoice(RATINGS)
     age_classification = FuzzyChoice(AGE_IDS)
+    by_subscription = FuzzyChoice(SUBSCRIPTION_TYPE)
     file_path = factory.Sequence(lambda n: f'Link to file{n}')
 
     @factory.post_generation
@@ -86,6 +88,7 @@ class SerialFactory(DjangoModelFactory):
     certificate = factory.Sequence(lambda n: f'Certificate for serial {n}')
     rating = FuzzyChoice(RATINGS)
     age_classification = FuzzyChoice(AGE_IDS)
+    by_subscription = FuzzyChoice(SUBSCRIPTION_TYPE)
 
     @factory.post_generation
     def genres(self, create, extracted, **kwargs):
