@@ -6,6 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 COPY requirements/base.txt requirements/dev.txt requirements/production.txt ./
+RUN python -m pip install --upgrade pip
 RUN pip install -r dev.txt
 
 COPY . .

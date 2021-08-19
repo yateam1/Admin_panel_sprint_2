@@ -31,11 +31,6 @@ class RoleType(models.IntegerChoices):
     PRODUCER = 3, _('producer')
 
 
-class SubscriptionType(models.IntegerChoices):
-    PUBLICLY = 0, _('no subscription required')
-    SUBSCRIPTION_1 = 1, _('basic subscription required')
-
-
 class Genre(TimeStampedModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(_('name'), max_length=255, unique=True)
@@ -118,9 +113,7 @@ class Filmwork(TimeStampedModel):
                                              choices=AgeClassification.choices,
                                              default=AgeClassification.LEVEL_18)
     rating = models.FloatField(_('rating'), validators=[MinValueValidator(0)], blank=True)
-    by_subscription = models.IntegerField(_('is subscription required'),
-                                          choices=SubscriptionType.choices,
-                                          default=SubscriptionType.PUBLICLY)
+    by_subscription = models.BooleanField(_('is subscription required'), default=False)
 
     class Meta:
         abstract = True
